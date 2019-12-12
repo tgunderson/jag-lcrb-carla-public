@@ -124,6 +124,37 @@ namespace Gov.Lclb.Cllb.Public.Controllers
 
 
         /// <summary>
+        /// Gets the number of active licences
+        /// </summary>
+        /// <param name="licenceeId"></param>
+        /// <returns></returns>
+        private int GetApprovedLicenceCountByApplicant(string licenceeId)
+        {
+
+            var result = 0;
+            List<ApplicationLicenseSummary> licenseSummaryList = new List<ApplicationLicenseSummary>();
+            IEnumerable<MicrosoftDynamicsCRMadoxioLicences> licences = null;
+            if (!string.IsNullOrEmpty(licenceeId))
+            {
+                var filter = $"_adoxio_licencee_value eq {licenceeId}";
+                filter += $" and statuscode eq { (int)LicenceStatusCodes.Active}";
+                try
+                {
+                    result = _dynamicsClient.Licenceses.Get(filter: filter).Value.Count;
+                   
+                }
+                catch (HttpOperationException)
+                {
+                    result = 0;
+                }
+
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
         /// Gets the number of applications that are submitted
         /// </summary>
         /// <param name="applicantId"></param>
@@ -137,12 +168,14 @@ namespace Gov.Lclb.Cllb.Public.Controllers
                 var filter = $"_adoxio_applicant_value eq {applicantId} and adoxio_paymentrecieved eq true and statuscode ne {(int)AdoxioApplicationStatusCodes.Terminated}";
                 filter += $" and statuscode ne {(int)AdoxioApplicationStatusCodes.Denied}";
                 filter += $" and statuscode ne {(int)AdoxioApplicationStatusCodes.Cancelled}";
+                filter += $" and statuscode ne {(int)AdoxioApplicationStatusCodes.Approved}";
+                filter += $" and statuscode ne {(int)AdoxioApplicationStatusCodes.Refused}";
                 filter += $" and statuscode ne {(int)AdoxioApplicationStatusCodes.TerminatedAndRefunded}";
 
-                var adoxioLicencetype = _dynamicsClient.GetAdoxioLicencetypeByName("Cannabis Retail Store");
-                if (adoxioLicencetype != null)
+                var applicationType = _dynamicsClient.GetApplicationTypeByName("Cannabis Retail Store");
+                if (applicationType != null)
                 {
-                    filter += $" and _adoxio_licencetype_value eq {adoxioLicencetype.AdoxioLicencetypeid} ";
+                    filter += $" and _adoxio_licencetype_value eq {applicationType.AdoxioApplicationtypeid} ";
                 }
 
                 try
@@ -192,6 +225,7 @@ namespace Gov.Lclb.Cllb.Public.Controllers
 
             // GET all applications in Dynamics by applicant using the account Id assigned to the user logged in
             var count = GetSubmittedCountByApplicant(userSettings.AccountId);
+            count += GetApprovedLicenceCountByApplicant(userSettings.AccountId);
             return new JsonResult(count);
         }
 
@@ -300,6 +334,8 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             string userJson = _httpContextAccessor.HttpContext.Session.GetString("UserSettings");
             UserSettings userSettings = JsonConvert.DeserializeObject<UserSettings>(userJson);
             int count = GetSubmittedCountByApplicant(userSettings.AccountId);
+            count += GetApprovedLicenceCountByApplicant(userSettings.AccountId);
+            
             if (count >= 8)
             {
                 return BadRequest("8 applications have already been submitted. Can not create more");

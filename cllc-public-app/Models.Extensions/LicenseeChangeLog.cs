@@ -12,6 +12,7 @@ namespace Gov.Lclb.Cllb.Public.Models
         public static void CopyValues(this MicrosoftDynamicsCRMadoxioLicenseechangelog toDynamics, LicenseeChangeLog fromVM)
         {
             toDynamics.AdoxioChangetype = (int?)fromVM.ChangeType;
+            toDynamics.AdoxioBusinesstype = (int?)fromVM.BusinessType;
             toDynamics.AdoxioIsdirectornew = fromVM.IsDirectorNew;
             toDynamics.AdoxioIsdirectorold = fromVM.IsDirectorOld;
             toDynamics.AdoxioIsmanagernew = fromVM.IsManagerNew;
@@ -36,7 +37,8 @@ namespace Gov.Lclb.Cllb.Public.Models
             toDynamics.AdoxioBusinesnameold = fromVM.BusinessNameOld;
             toDynamics.AdoxioDateofbirthnew = fromVM.DateofBirthNew;
             toDynamics.AdoxioDateofbirthold = fromVM.DateofBirthOld;
-
+            toDynamics.AdoxioInterestpercentagenew = fromVM.InterestPercentageNew;
+            toDynamics.AdoxioInterestpercentageold = fromVM.InterestPercentageOld;
         }
 
         public static LicenseeChangeLog ToViewModel(this MicrosoftDynamicsCRMadoxioLicenseechangelog changeLog)
@@ -45,6 +47,7 @@ namespace Gov.Lclb.Cllb.Public.Models
             {
                 Id = changeLog.AdoxioLicenseechangelogid,
                 ChangeType = (LicenseeChangeType?)changeLog.AdoxioChangetype,
+                BusinessType = (AdoxioApplicantTypeCodes?)changeLog.AdoxioBusinesstype,
                 IsDirectorNew = changeLog.AdoxioIsdirectornew,
                 IsDirectorOld = changeLog.AdoxioIsdirectorold,
                 IsManagerNew = changeLog.AdoxioIsmanagernew,
@@ -67,7 +70,9 @@ namespace Gov.Lclb.Cllb.Public.Models
                 LastNameOld = changeLog.AdoxioLastnameold,
                 BusinessNameNew = changeLog.AdoxioBusinessnamenew,
                 BusinessNameOld = changeLog.AdoxioBusinesnameold,
-                
+                InterestPercentageNew = changeLog.AdoxioInterestpercentagenew,
+                InterestPercentageOld = changeLog.AdoxioInterestpercentageold,
+
                 DateofBirthNew = changeLog.AdoxioDateofbirthnew,
                 DateofBirthOld = changeLog.AdoxioDateofbirthold,
 

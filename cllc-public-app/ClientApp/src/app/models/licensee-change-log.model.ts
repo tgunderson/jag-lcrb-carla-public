@@ -17,7 +17,7 @@ export class LicenseeChangeLog {
   isShareholderOld: boolean;
   isTrusteeNew: boolean;
   isTrusteeOld: boolean;
-  businessAccountType: string;
+  businessType: string;
   numberofSharesNew: number;
   numberofSharesOld: number;
   totalSharesNew: number;
@@ -44,17 +44,37 @@ export class LicenseeChangeLog {
   parentLinceseeChangeLogId: string;
   children: LicenseeChangeLog[];
   parentLinceseeChangeLog: LicenseeChangeLog;
+  interestPercentageNew: number;
+  interestPercentageOld: number;
 
   isRoot: boolean; // This is only used on the client side
   isIndividual: boolean; // This is only used on the client side
-  percentageShares: number; // This in only used on the client side
 
+
+  public get percentageShares(): number {
+    let percent = 0;
+    if (this.parentLinceseeChangeLog && this.parentLinceseeChangeLog.totalSharesNew && this.numberofSharesNew) {
+      percent = this.numberofSharesNew / this.parentLinceseeChangeLog.totalSharesNew * 100;
+      percent = Math.round(percent * 100) / 100; // round to two decimal places
+    }
+    return percent;
+  }
+
+
+  public get totalChildShares(): number {
+    let totalShares = 0;
+    if (this.children && this.children.length) {
+      totalShares = this.children.map(v => v.numberofSharesNew || 0).reduce((previous, current) => previous + current);
+    }
+    return totalShares;
+  }
   /**
    * Create from LegalEntity
    */
   constructor(legalEntity: LegalEntity = null) {
     if (legalEntity) {
       this.legalEntityId = legalEntity.id;
+      this.businessType = legalEntity.legalentitytype;
       this.isIndividual = legalEntity.isindividual;
       this.parentLegalEntityId = legalEntity.parentLegalEntityId;
       this.changeType = 'unchanged';
@@ -69,7 +89,7 @@ export class LicenseeChangeLog {
       this.isTrusteeNew = legalEntity.isTrustee;
       this.isTrusteeOld = legalEntity.isTrustee;
       if (legalEntity.account) {
-        this.businessAccountType = legalEntity.account.businessType;
+        this.businessType = legalEntity.account.businessType;
       }
       this.numberofSharesNew = legalEntity.commonvotingshares;
       this.numberofSharesOld = legalEntity.commonvotingshares;
@@ -297,7 +317,7 @@ export class LicenseeChangeLog {
   cancelChange(node: LicenseeChangeLog) {
     // delete change log record
     // ??What to do with children when their parent add is cancelled
-    // 
+    //
   }
 
   /**
@@ -405,22 +425,22 @@ export class LicenseeChangeLog {
 
     //notice of articles
     const needsNoticeOfArticels = (node: LicenseeChangeLog) => (node.changeType === LicenseeChangeType.addBusinessShareholder
-      && (node.businessAccountType === 'PrivateCorporation' || node.businessAccountType === 'PublicCorporation'));
+      && (node.businessType === 'PublicCorporation'));
     result.noticeOfArticles = LicenseeChangeLog.findNodesInTree(treeRoot, needsNoticeOfArticels);
 
     //central securities register
     const needsCentralSecuritiesRegister = (node: LicenseeChangeLog) => (node.changeType === LicenseeChangeType.addBusinessShareholder
-      && node.businessAccountType === 'PrivateCorporation');
+      && node.businessType === 'PrivateCorporation');
     result.centralSecuritiesResgister = LicenseeChangeLog.findNodesInTree(treeRoot, needsCentralSecuritiesRegister);
 
     //shareholder record
     const needsShareholderRecord = (node: LicenseeChangeLog) => (node.changeType === LicenseeChangeType.addBusinessShareholder
-      && node.businessAccountType === 'PublicCorporation');
+      && node.businessType === 'PublicCorporation');
     result.shareholderList = LicenseeChangeLog.findNodesInTree(treeRoot, needsShareholderRecord);
 
     //partnership agreement
     const needsParnershipAgreement = (node: LicenseeChangeLog) => (node.changeType === LicenseeChangeType.addBusinessShareholder
-      && node.businessAccountType === 'Partnership');
+      && node.businessType === 'Partnership');
     result.partnershipAgreement = LicenseeChangeLog.findNodesInTree(treeRoot, needsParnershipAgreement);
 
     return result;
