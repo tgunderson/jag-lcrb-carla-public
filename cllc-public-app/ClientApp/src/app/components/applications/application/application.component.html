@@ -18,6 +18,11 @@
         <div class="ngtest-before-starting-content" [innerHTML]="htmlContent.beforeStarting"></div>
       </section>
 
+      <div *ngIf="application?.applicationType?.name == 'Catering Licence'">
+        <p>Catering Licence!</p>
+      </div>
+      <div *ngIf="application?.applicationType?.name != 'Catering Licence'">
+
       <!-- Property Details -->
       <section class="ngtest-property-details" *ngIf="application?.applicationType?.showPropertyDetails">
         <h3 class="blue-header">PROPERTY DETAILS</h3>
@@ -1211,4 +1216,5 @@
   <div [ngBusy]="busy"></div>
   <ng-container *ngTemplateOutlet="applicationContent">
   </ng-container>
+</div>
 </div>
