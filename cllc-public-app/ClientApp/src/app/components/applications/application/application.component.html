@@ -18,96 +18,85 @@
         <div class="ngtest-before-starting-content" [innerHTML]="htmlContent.beforeStarting"></div>
       </section>
 
-      <div *ngIf="application?.applicationType?.name == 'Catering Licence'">
-        <p>Catering Licence!</p>
-      </div>
-      <div *ngIf="application?.applicationType?.name != 'Catering Licence'">
 
       <!-- Property Details -->
       <section class="ngtest-property-details" *ngIf="application?.applicationType?.showPropertyDetails">
-        <h3 class="blue-header">PROPERTY DETAILS</h3>
+          <h3 *ngIf="htmlContent?.beforeStarting" class="blue-header">Applicant Information (Legal Entity)</h3>
+
+          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+          *ngIf="application?.applicationType?.showPropertyDetails">
+          <section style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="question-label">
+                Do you or any of your shareholders currently hold, have held, or have previously applied for a British Columbia liquor licence?
+            </div>
+            <div style="flex: 0 0 85px;">
+              <mat-button-toggle-group  aria-label="Font Style">
+                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                <mat-button-toggle value="No">No</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </section>
+          <p>&nbsp;</p>
+          <p><i>If Yes, provide details of current or previous licence(s) or previous applications (date held, licence #(s), location, type of licence and name of establishment(s) or business(es))</i></p>
+          <textarea  rows="8" style="width: 100%;" maxlength="5000"
+          minlength="10" id="description1"></textarea>
+          </mat-card>
+
+
+          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+          *ngIf="application?.applicationType?.showPropertyDetails">
+          <section style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="question-label">
+                Do you hold a Rural Agency Store Appointment?
+            </div>
+            <div style="flex: 0 0 85px;">
+              <mat-button-toggle-group  aria-label="Font Style">
+                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                <mat-button-toggle value="No">No</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </section>
+          </mat-card>
+
+          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+          *ngIf="application?.applicationType?.showPropertyDetails">
+          <section style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="question-label">
+                Do you, or any of your shareholders, have any connection, financial or otherwise, direct or indirect, with a distillery, brewery or winery?
+            </div>
+            <div style="flex: 0 0 85px;">
+              <mat-button-toggle-group  aria-label="Font Style">
+                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                <mat-button-toggle value="No">No</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </section>
+          <p>&nbsp;</p>
+          <p><i>If Yes, provide details</i></p>
+          <textarea  rows="8" style="width: 100%;" maxlength="5000"
+          minlength="10" id="description1"></textarea>
+          </mat-card>
+
+
+
+        <h3 class="blue-header">BUSINESS PROPOSAL </h3>
         <section class="padded-section">
           <div style="position: relative">
             <div [ngBusy]="busy"></div>
-            <section *ngIf="application?.applicationType?.establishmentName === FormControlState.Show">
-              <label for="">Establishment Name</label>
-              <br>
-
-              <p>
-                A name cannot mislead the public about what kind of business the licensee operates. The name cannot
-                imply a
-                licensee is selling medical cannabis, and cannot include words in any form or combination or manner
-                the
-                words "apothecary", "pharmacy", "medicines", "drugs", "drug store", "drug department", "dispensary"
-                or any other words of similar meaning that imply licensing under the Pharmacy Operations and Drug
-                Scheduling Act. Store names cannot also use language that encourages intoxication.
-              </p>
-
-              <p>
-                Additionally, a name cannot imply an association with another business. This applies to signs,
-                trademarks and any type of branding.
-              </p>
-
-              <p>
-                Establishment names will be reviewed for approval during the application process. For more
-                information,
-                please see the <a routerLink="/policy-document/store-name">
-                  Non-Medical Cannabis Retail Store Name Approval
-                  Process
-                </a>.
-              </p>
-            </section>
 
             <app-field *ngIf="showFormControl(application?.applicationType?.establishmentName)"
-              [label]="[ApplicationTypeNames.CRSTransferofOwnership, ApplicationTypeNames.CRSLocationChange].indexOf(application?.applicationType?.name) === -1 ? 'Establishment Name' : 'Name of the Proposed Establishment'"
-              [required]="true" [valid]="isValidOrNotTouched('establishmentName')"
-              errorMessage="{{form.get('establishmentName').errors && form.get('establishmentName').errors['forbiddenName'] ? 'The store name contains at least one word that doesn’t comply with naming requirements. The application can’t be submitted until the prohibited word(s) are removed.' : 'Establishment Name is a required field'}}">
+              [label]="'Proposed business name:'"
+              [required]="true">
               <input class="form-control" style="width: 500px;" type="text"
                 [readonly]="application?.applicationType?.establishmentName === FormControlState.Reaonly"
-                (change)="checkPossibleProblematicWords()" formControlName="establishmentName" id="establishmentName">
+                formControlName="establishmentName" id="establishmentName">
             </app-field>
-            <div *ngIf="possibleProblematicNameWarning" class="warning-state">
-              Caution: The store name might contain at least one word that doesn’t comply with the naming
-              requirements.
-              Double check the store name before submitting the application.
-            </div>
 
           </div>
-          <div formGroupName="assignedLicence"
-            *ngIf="showFormControl(application?.applicationType?.currentEstablishmentAddress)">
-            <h3 class="blue-header" style="margin-left: -15px;">CURRENT ADDRESS</h3>
-            <address class="row">
-              <app-field class="col-md-12 col-xs-12" label="Address" [isFullWidth]="true">
-                <input class="form-control" type="text" readonly formControlName="establishmentAddressStreet" id="establishmentAddressStreet">
-              </app-field>
-              <app-field class="col-md-4 col-xs-12" label="City" [isFullWidth]="true">
-                <input class="form-control" type="text" readonly formControlName="establishmentAddressCity" id="establishmentAddressCity">
-              </app-field>
-              <section class="col-md-4 col-xs-12">
-                <app-field label="Province" [isFullWidth]="true">
-                  <input class="form-control" readonly type="text" value="British Columbia">
-                </app-field>
-              </section>
-              <section class="col-md-4 col-xs-12">
-                <app-field label="Postal Code">
-                  <input class="form-control" type="text" readonly formControlName="establishmentAddressPostalCode" id="establishmentAddressPostalCode">
-                </app-field>
-              </section>
-              <app-field class="col-md-4 col-xs-12" label="Country" [isFullWidth]="true">
-                <input class="form-control" autocomplete="country-name" readonly type="text" value="Canada">
-              </app-field>
-            </address>
-            <div class="light-blue-bg" style="display: flex;">
-              <div style="flex: 0 0 210px;">
-                <app-field label="Parcel Identifier (PID)">
-                  <input type="text" readonly class="form-control" (keydown)="rejectIfNotDigitOrBackSpace($event)"
-                    style="width: 200px;" formControlName="establishmentParcelId" id="establishmentAddressPostalCode">
-                </app-field>
-              </div>
-            </div>
-          </div>
+
           <div class="ngtest-new-address"
             *ngIf="showFormControl(application?.applicationType?.newEstablishmentAddress)">
+            
             <h3 class="blue-header"
               *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSLocationChange">
               PROPOSED ADDRESS</h3>
@@ -173,8 +162,9 @@
                 </ul>
               </div>
             </div>
-            <p>&nbsp;</p>
+            
           </div>
+        
 
           <!-- Store Contact Info -->
           <section *ngIf="showFormControl(application?.applicationType?.storeContactInfo)">
@@ -194,9 +184,28 @@
                   (keydown)="rejectIfNotDigitOrBackSpace($event)" formControlName="establishmentPhone" id="establishmentPhone">
               </app-field>
             </div>
-            <p>&nbsp;</p>
+            
           </section>
 
+        <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+        *ngIf="application?.applicationType?.showPropertyDetails">
+        <section style="display: flex; justify-content: space-between; width: 100%;">
+          <div class="question-label">
+              Is there another business being operated at the proposed business location?
+          </div>
+          <div style="flex: 0 0 85px;">
+            <mat-button-toggle-group  aria-label="Font Style">
+              <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+              <mat-button-toggle value="No">No</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </section>
+        <p>&nbsp;</p>
+        <p><i>If Yes, provide details</i></p>
+        <textarea  rows="8" style="width: 100%;" maxlength="5000"
+        minlength="10" id="description1"></textarea>
+
+        </mat-card>
         </section>
       </section>
 
@@ -213,31 +222,10 @@
       </section>
 
       <div class="ngtest-photo-signage" *ngIf="showFormControl(application?.applicationType?.signage)">
-        <hr>
-        <label for="">Photos or renderings of the store's signage</label>
-        <br>
-        <section *ngIf="application?.applicationType?.signage === FormControlState.Show">
-          <app-more-less-content>
-            <p less>
-              The signage submitted must show the name of the store and all words, images and symbols used in the
-              signage.
-            </p>
-            <div more>
-              <p>
-                Signage must not contain any pictures, images or symbols that imply the sale of medical cannabis (e.g. a
-                green cross).
-              </p>
-              <p>
-                Signage must not imply an association with another business (other than another non-medical cannabis
-                retail
-                store).
-              </p>
-              <p>
-                If submitting renderings, renderings may be either printed or hand-drawn (as long as they are legible)
-              </p>
-            </div>
-          </app-more-less-content>
-        </section>
+        <h3 class="blue-header">Additional Requirements and Information</h3>
+        
+        <label for="">Provide a sketch or renderings of the proposed business signage. Signs and business name are subject to LCRB approval</label>
+        <p><strong>Note:</strong> Signs should not be ordered prior to approval of the business name by the Liquor Control and Licensing Branch.</p>
 
         <p *ngIf="application?.applicationType?.signage === FormControlState.Reaonly">The below photos or renderings of
           the store's signage are on file.</p>
@@ -252,22 +240,25 @@
         </section>
       </div>
 
-      <mat-card *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSEstablishmentNameChange"
+
+      <mat-card 
         class="mat-elevation-z0" style="margin-bottom: 10px;">
         <section style="display: flex; justify-content: space-between; width: 100%;">
-          <div class="question-label">
-            Will the store’s exterior change?
-          </div>
-          <div style="flex: 0 0 85px;">
-            <mat-button-toggle-group [ngClass]="{'invalid': isTouchedAndInvalid('proposedChange')}"
-              formControlName="proposedChange" aria-label="Font Style">
-              <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-              <mat-button-toggle value="No">No</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
+          <div class="Notice" style="border: 1px dotted black; padding:2px; font-size:12px;"><i>
+              At the time of final inspection, the liquor inspector will confirm that your business location meets the requirements of a catering licence by verifying the following eligibility requirements:
+              <ul>
+                <li>The primary business of the applicant is the preparation and serving of food.</li>
+                <li>The applicant has the personnel and infrastructure necessary to prepare and serve food at events hosted by others. This
+                    includes a requirement to have a full commercial kitchen at the applicant's business location.</li>
+              </ul>
+              If at the time of final inspection the liquor inspector is not satisfied with your kitchen equipment, food selection, advertising and staffing, you may be required to make changes and schedule a second (2nd) inspection to confirm you meet the requirements of a catering licence. A fee of $200 will be charged if a second (2nd) inspection is required
+            </i>
+            </div>
+
         </section>
       </mat-card>
 
+  
 
       <div class="ngtest-valid-interest" *ngIf="showFormControl(application?.applicationType?.validInterest)">
         <hr>
@@ -1216,5 +1207,4 @@
   <div [ngBusy]="busy"></div>
   <ng-container *ngTemplateOutlet="applicationContent">
   </ng-container>
-</div>
 </div>
