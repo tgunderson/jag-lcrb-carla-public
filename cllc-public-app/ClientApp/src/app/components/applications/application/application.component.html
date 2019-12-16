@@ -21,88 +21,127 @@
 
       <!-- Property Details -->
       <section class="ngtest-property-details" *ngIf="application?.applicationType?.showPropertyDetails">
-          <h3 *ngIf="htmlContent?.beforeStarting" class="blue-header">Applicant Information (Legal Entity)</h3>
+          <h3 class="blue-header">TYPE OF APPLICATION</h3>
 
           <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
           *ngIf="application?.applicationType?.showPropertyDetails">
-          <section style="display: flex; justify-content: space-between; width: 100%;">
-            <div class="question-label">
-                Do you or any of your shareholders currently hold, have held, or have previously applied for a British Columbia liquor licence?
-            </div>
-            <div style="flex: 0 0 85px;">
-              <mat-button-toggle-group  aria-label="Font Style">
-                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-                <mat-button-toggle value="No">No</mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
+
+          <section style="width: 100%">
+              <p><strong>Select the type of Liquor Primary You are Applying For:</strong></p>
           </section>
-          <p>&nbsp;</p>
-          <p><i>If Yes, provide details of current or previous licence(s) or previous applications (date held, licence #(s), location, type of licence and name of establishment(s) or business(es))</i></p>
-          <textarea  rows="8" style="width: 100%;" maxlength="5000"
-          minlength="10" id="description1"></textarea>
-          </mat-card>
 
-
-          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
-          *ngIf="application?.applicationType?.showPropertyDetails">
           <section style="display: flex; justify-content: space-between; width: 100%;">
-            <div class="question-label">
-                Do you hold a Rural Agency Store Appointment?
-            </div>
-            <div style="flex: 0 0 85px;">
+              
               <mat-button-toggle-group  aria-label="Font Style">
-                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-                <mat-button-toggle value="No">No</mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
+                  <mat-button-toggle value="New Liquor Primary Club">New Liquor Primary Club</mat-button-toggle>
+                  <mat-button-toggle value="New Liquor Primary">New Liquor Primary</mat-button-toggle>
+                </mat-button-toggle-group>
           </section>
-          </mat-card>
 
-          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
-          *ngIf="application?.applicationType?.showPropertyDetails">
-          <section style="display: flex; justify-content: space-between; width: 100%;">
-            <div class="question-label">
-                Do you, or any of your shareholders, have any connection, financial or otherwise, direct or indirect, with a distillery, brewery or winery?
-            </div>
-            <div style="flex: 0 0 85px;">
-              <mat-button-toggle-group  aria-label="Font Style">
-                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-                <mat-button-toggle value="No">No</mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
+          <section style="width: 100%; font-size: 12px; padding:5px; font-weight:200;">
+              <p><i><strong>New Liquor Primary Club:</strong><br>A society registered under the provincial Societies Act or  a non-profit or veterans organization incorporated by special act of parliament, may apply for an LP Club Licence. LP Clubs must have at least 50 members who pay annual fees. The service area of an LP Club is restricted to members and guests only.</i></p>            
+              <p><i><strong>New Liquor Primary (LP):</strong><br>Motor vehicles, and businesses predominantly directed at minors, are prohibited from obtaining a liquor primary licence.</i></p>            
           </section>
-          <p>&nbsp;</p>
-          <p><i>If Yes, provide details</i></p>
-          <textarea  rows="8" style="width: 100%;" maxlength="5000"
-          minlength="10" id="description1"></textarea>
-          </mat-card>
 
-
-
-        <h3 class="blue-header">BUSINESS PROPOSAL </h3>
-        <section class="padded-section">
           <div style="position: relative">
-            <div [ngBusy]="busy"></div>
-
-            <app-field *ngIf="showFormControl(application?.applicationType?.establishmentName)"
-              [label]="'Proposed business name:'"
+              <div [ngBusy]="busy"></div>
+  
+              <app-field
+              [label]="'Identify the establishment type that best fits your proposed LP business:'"
               [required]="true">
-              <input class="form-control" style="width: 500px;" type="text"
-                [readonly]="application?.applicationType?.establishmentName === FormControlState.Reaonly"
-                formControlName="establishmentName" id="establishmentName">
+              <select class="form-control" style="width: 500px;">
+                  <option> </option>
+                  <option>Aircraft</option>
+                  <option>Airport Lounge Aquarium</option>
+                  <option>Art Gallery B&B/Hotel Bingo Hall Brew Pub Casino</option>
+                  <option>Community Centre Concert Hall Convention Centre Cooking School Cultural Centre Fishing Lodge</option>
+                  <option>Golf Course Hair Salon</option>
+                  <option>Live Theatre Lounge</option>
+                  <option>Military Mess Movie Theatre Museum</option>
+                  <option>Night Club/Cabaret Private Club</option>
+                  <option>Public House (Pub)</option>
+                  <option>Recreation Facility</option>
+                  <option>Rental Hall</option>
+                  <option>Resort</option>
+                  <option>Retail Store (specify type) Spa</option>
+                  <option>Stadium</option>
+                  <option>Train Station University/College</option>
+              </select>
+
             </app-field>
 
-          </div>
+            </div>
+          </mat-card>
 
-          <div class="ngtest-new-address"
+          <h3 class="blue-header">APPLICANT INFORMATION</h3>
+          <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+          *ngIf="application?.applicationType?.showPropertyDetails">
+          <p><strong>Please answer Yes or No to each of the following:</strong></p>
+          <section style="display: flex; justify-content: space-between; width: 100%;">            
+              <div style="flex: 0 0 85px;">
+                  <mat-button-toggle-group  aria-label="Font Style">
+                    <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                    <mat-button-toggle value="No">No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+            <div class="question-label">
+                The applicant is the owner of the business in respect of which the licence is to be issued or will become the owner before the licence is issued.
+            </div>
+          </section>
+          <p>&nbsp;</p>
+          <section style="display: flex;  width: 100%;">            
+              <div style="flex: 0 0 85px;">
+                  <mat-button-toggle-group  aria-label="Font Style">
+                    <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                    <mat-button-toggle value="No">No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="question-label">
+                    At the time of application, the applicant is:
+                    <li style="margin-left:20px; padding-left:10px;">
+                        The owner of or has an agreement to purchase the place or premises that will form the proposed establishment, or
+                    </li>
+                    <li style="margin-left:20px; padding-left:10px;">
+                        The lessee or has a binding offer to lease the place or premises that will form the proposed establishment.
+                    </li>
+                </div>
+          </section>
+          <p>&nbsp;</p>
+          <section style="display: flex; width: 100%;">            
+              <div style="flex: 0 0 85px;">
+                  <mat-button-toggle-group  aria-label="Font Style">
+                    <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                    <mat-button-toggle value="No">No</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="question-label">
+                    At the time the licence is issued, the applicant will be:
+                    <li style="margin-left:20px; padding-left:10px;">The owner of the place or premises that forms the establishment, or</li>
+                    <li style="margin-left:20px; padding-left:10px;">The lessee of the place or premises that forms the establishment (term no less than 12 months).</li>
+                </div>
+          </section>
+          </mat-card>
+  
+          <h3 class="blue-header">ESTABLISHMENT</h3>
+          <section >
+
+            <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
+            *ngIf="application?.applicationType?.showPropertyDetails">
+            <div class="ngtest-new-address"
             *ngIf="showFormControl(application?.applicationType?.newEstablishmentAddress)">
-            
-            <h3 class="blue-header"
-              *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSLocationChange">
-              PROPOSED ADDRESS</h3>
-            &nbsp;
+     
+            <app-field [label]="[ApplicationTypeNames.CRSTransferofOwnership, ApplicationTypeNames.CRSLocationChange].indexOf(application?.applicationType?.name) === -1 ? 'Establishment Name' : 'Name of the Proposed Establishment'"
+            [required]="true" [valid]="isValidOrNotTouched('establishmentName')"
+            errorMessage="{{form.get('establishmentName').errors && form.get('establishmentName').errors['forbiddenName'] ? 'The store name contains at least one word that doesn’t comply with naming requirements. The application can’t be submitted until the prohibited word(s) are removed.' : 'Establishment Name is a required field'}}">
+            <input class="form-control" style="width: 500px;" type="text" id="establishmentName">
+          </app-field>
+      
+
+
+
+
             <address class="row">
-              <app-field class="col-md-12 col-xs-12" label="Address" [required]="true" [isFullWidth]="true"
+              <app-field class="col-md-12 col-xs-12" label="Physical Address" [required]="true" [isFullWidth]="true"
                 [valid]="isValidOrNotTouched('establishmentAddressStreet')"
                 errorMessage="Please enter the street address">
                 <input class="form-control" type="text" autocomplete="address-line1"
@@ -186,26 +225,56 @@
             </div>
             
           </section>
+          <p><strong>Please answer Yes or No to each of the following:</strong></p>
+            <section style="display: flex; width: 100%;">            
+                <div style="flex: 0 0 85px;">
+                    <mat-button-toggle-group  aria-label="Font Style">
+                      <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                      <mat-button-toggle value="No">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+              <div class="question-label">
+                  Is this location zoned for liquor service?
+              </div>
+            </section>
+            <p>&nbsp;</p>
+            <section style="display: flex;  width: 100%;">            
+                <div style="flex: 0 0 85px;">
+                    <mat-button-toggle-group  aria-label="Font Style">
+                      <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                      <mat-button-toggle value="No">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div class="question-label">
+                      If the LP licence is issued, would you like mail sent to the establishment?
+                  </div>
+            </section>
+            <p>&nbsp;</p>
+            <section style="display: flex; width: 100%;">            
+                <div style="flex: 0 0 85px;">
+                    <mat-button-toggle-group  aria-label="Font Style">
+                      <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                      <mat-button-toggle value="No">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div class="question-label">
+                      Will this establishment overlap a food primary licence (aka dual licence)?
+                  </div>
+            </section>
+            <p>&nbsp;</p>
+            <section style="display: flex; width: 100%;">            
+                <div style="flex: 0 0 85px;">
+                    <mat-button-toggle-group  aria-label="Font Style">
+                      <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                      <mat-button-toggle value="No">No</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div class="question-label">
+                      Is your establishment a standalone patio with no interior seating?
+                  </div>
+            </section>
+            </mat-card>
 
-        <mat-card class="mat-elevation-z8" style="margin-bottom: 10px;"
-        *ngIf="application?.applicationType?.showPropertyDetails">
-        <section style="display: flex; justify-content: space-between; width: 100%;">
-          <div class="question-label">
-              Is there another business being operated at the proposed business location?
-          </div>
-          <div style="flex: 0 0 85px;">
-            <mat-button-toggle-group  aria-label="Font Style">
-              <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-              <mat-button-toggle value="No">No</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-        </section>
-        <p>&nbsp;</p>
-        <p><i>If Yes, provide details</i></p>
-        <textarea  rows="8" style="width: 100%;" maxlength="5000"
-        minlength="10" id="description1"></textarea>
-
-        </mat-card>
         </section>
       </section>
 
@@ -224,39 +293,8 @@
       <div class="ngtest-photo-signage" *ngIf="showFormControl(application?.applicationType?.signage)">
         <h3 class="blue-header">Additional Requirements and Information</h3>
         
-        <label for="">Provide a sketch or renderings of the proposed business signage. Signs and business name are subject to LCRB approval</label>
-        <p><strong>Note:</strong> Signs should not be ordered prior to approval of the business name by the Liquor Control and Licensing Branch.</p>
 
-        <p *ngIf="application?.applicationType?.signage === FormControlState.Reaonly">The below photos or renderings of
-          the store's signage are on file.</p>
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Signage"
-            [enableFileDeletion]="application?.applicationType?.signage === FormControlState.Show"
-            [useDocumentTypeForName]="true" fileTypes="FILE MUST BE IN PDF, JPG OR PNG FORMAT." [multipleFiles]="true"
-            entityName="application" [extensions]="['jpg', 'jpeg', 'png', 'pdf']"
-            (numberOfUploadedFiles)="uploadedSignageDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD PHOTOS OR RENDERINGS OF SIGNAGE, DRAG FILES HERE OR'">
-          </app-file-uploader>
-        </section>
       </div>
-
-
-      <mat-card 
-        class="mat-elevation-z0" style="margin-bottom: 10px;">
-        <section style="display: flex; justify-content: space-between; width: 100%;">
-          <div class="Notice" style="border: 1px dotted black; padding:2px; font-size:12px;"><i>
-              At the time of final inspection, the liquor inspector will confirm that your business location meets the requirements of a catering licence by verifying the following eligibility requirements:
-              <ul>
-                <li>The primary business of the applicant is the preparation and serving of food.</li>
-                <li>The applicant has the personnel and infrastructure necessary to prepare and serve food at events hosted by others. This
-                    includes a requirement to have a full commercial kitchen at the applicant's business location.</li>
-              </ul>
-              If at the time of final inspection the liquor inspector is not satisfied with your kitchen equipment, food selection, advertising and staffing, you may be required to make changes and schedule a second (2nd) inspection to confirm you meet the requirements of a catering licence. A fee of $200 will be charged if a second (2nd) inspection is required
-            </i>
-            </div>
-
-        </section>
-      </mat-card>
 
   
 
@@ -303,217 +341,84 @@
         </section>
       </div>
 
-      <div class="ngtest-floor-plan" *ngIf="showFormControl(application?.applicationType?.floorPlan)">
-        <hr><br>
-        <label for="">Floor Plan</label>
-        <br>
-        <section *ngIf="application?.applicationType?.floorPlan === FormControlState.Show">
-          <app-more-less-content>
-            <span less>
-              <span>
-                A floor plan is a document, showing a view from above, of the dimensions and relationships between
-                rooms, spaces and other physical features on each floor of a structure. The document must measure at
-                least 8.5" x 11" (standard letter size). A floor plan for each level of the establishment must be
-                submitted if the proposed establishment has more than one level. Either a hand-drawn or
-                computer-generated plan is acceptable, as long as the plan is drawn to scale and is clear and legible. A
-                floor plan must not be submitted on graph paper or paper with gridlines.
-              </span>
-              <div style="display: flex; margin-top: 10px;">
-                <section>
-                  The floor plan must be submitted at the time of application and it
-                  must identify the proposed non-medical cannabis retail area(s) plus
-                  the following interior features of the establishment:
-                  <ul>
-                    <li>Each room or area labeled with its intended use and dimensions;</li>
-                    <li>Washrooms, stairs and elevators;</li>
-                    <li>Entrances and exits (including those used by staff only);</li>
-                    <li>Cannabis storage areas;</li>
-                    <li>Sales counter and cash register locations;</li>
-                    <li>Furniture and fixture layout (e.g. shelves, display cases); and</li>
-                    <li>Identify the security system and other physical security features that secure the store.</li>
-                  </ul>
-                </section>
-                <img src="assets/floor-plan-example.png" width="300" alt="Floor plan"
-                  style="margin: auto; display: block;">
-              </div>
-            </span>
-          </app-more-less-content>
 
-        </section>
-        <p *ngIf="application?.applicationType?.floorPlan === FormControlState.Reaonly">
-          The below offer or proof of ownership, lease or sub-lease is on file.
-        </p>
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Floor Plan" fileTypes="FILE MUST BE IN PDF FORMAT."
-            [enableFileDeletion]="application?.applicationType?.floorPlan === FormControlState.Show"
-            [multipleFiles]="true" entityName="application" [useDocumentTypeForName]="true"
-            (numberOfUploadedFiles)="uploadedFloorPlanDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD FLOOR PLANS, DRAG FILES HERE OR'">
-          </app-file-uploader>
-        </section>
-      </div>
-      <br>
-      <hr *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSStructuralChange">
-      <mat-card *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSStructuralChange"
-        class="mat-elevation-z0" style="margin-bottom: 10px;">
-        <section style="display: flex; justify-content: space-between; width: 100%;">
-          <div class="question-label">
-            Does the proposed change involve a shared vestibule or changes to the entrances, exits or windows?
-          </div>
-          <div style="flex: 0 0 85px;">
-            <mat-button-toggle-group [ngClass]="{'invalid': isTouchedAndInvalid('proposedChange')}"
-              formControlName="proposedChange" aria-label="Font Style">
-              <mat-button-toggle value="Yes">Yes</mat-button-toggle>
-              <mat-button-toggle value="No">No</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-        </section>
-      </mat-card>
-
-      <div class="ngtest-site-plan" *ngIf="showSitePlan()">
-        <hr><br>
-        <label for="">Site Plan</label>
-        <br>
-        <div *ngIf="application?.applicationType?.sitePlan === FormControlState.Show">
-          <app-more-less-content>
-            <section less>
-              <span>
-                A site plan is a document showing any existing and proposed building footprints, pathways of
-                travel, parking, and landscaping elements, and the surrounding area. The document must measure at least
-                8.5" x 11" (standard letter size). Either a hand-drawn or computer-generated plan is acceptable, as long
-                as the plan is drawn to scale and is clear and legible. A site plan must not be submitted on graph paper
-                or paper with gridlines.
-              </span>
-              <div class="row" style="margin-top: 10px;">
-                <div class="col-md-6">
-                  <p>
-                    The site plan must include the proposed store footprint and a representation of any interior or
-                    exterior spaces surrounding the store, including:
-                  </p>
-
-                  <ul>
-                    <li>The location of any other buildings/businesses on the same site, each building footprint, type
-                      of businesses (e.g. gas station, office building) and building names, and their entrances and
-                      exits</li>
-                    <li>A description of the type of separation proposed (for any adjoining businesses)</li>
-                    <li>Road access and exits, including any relevant street names</li>
-                    <li>Parking lots.</li>
-                  </ul>
-                  <img src="assets/site-plan-example.png" width="350" alt="Site plan"
-                    style="margin: auto; display: block;">
-                </div>
-                <div class="col-md-6">
-                  <p>
-                    If the proposed store is located inside a building with other businesses
-                    (e.g. a mall), submit two site plans:
-                  </p>
-                  <p>
-                    1) One site plan showing location of any other buildings/businesses on the same site, including:
-                  </p>
-                  <ul>
-                    <li>Each building footprint, building name and a list of businesses operating inside the building
-                    </li>
-                    <li>Road access and exits, including any relevant street names, and</li>
-                    <li>Parking lots</li>
-                  </ul>
-                  <p>
-                    2) A second site plan showing the location of the proposed store
-                    inside the building’s footprint:
-                  </p>
-                  <ul>
-                    <li>All entrances and exits for the building</li>
-                    <li>The location, name and type of businesses operating inside the building</li>
-                    <li>The store footprint with all entrances and exits for the store, and</li>
-                    <li>A description of the type of separation proposed for any business adjoining the proposed store
-                    </li>
-                  </ul>
-                  <p>
-                    Full height walls are required for separation and no connecting doors between the cannabis retail
-                    store
-                    and
-                    the neighbouring business are permitted.
-                  </p>
-                  <p>
-                    The cannabis retail store may share a vestibule with another type of business (e.g. a liquor store
-                    or
-                    grocery
-                    store) provided each business has its own controlled entrance within the vestibule. The cannabis
-                    retail
-                    store
-                    cannot share a vestibule with a business that would be contrary to public interest (i.e. business
-                    aimed
-                    at
-                    minors or a liquor consumption business).
-                  </p>
-                </div>
-              </div>
-            </section>
-          </app-more-less-content>
-        </div>
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Site Plan" fileTypes="FILE MUST BE IN PDF FORMAT."
-            [enableFileDeletion]="application?.applicationType?.sitePlan === FormControlState.Show"
-            [multipleFiles]="true" entityName="application" [useDocumentTypeForName]="true"
-            (numberOfUploadedFiles)="uploadedSitePlanDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD SITE PLAN DOCUMENTS, DRAG FILES HERE OR'">
-          </app-file-uploader>
-        </section>
-      </div>
-
-      <div class="ngtest-photos-renderings" *ngIf="showExteriorRenderings()">
-        <hr>
-        <label for="">Photos or renderings of the store's proposed exterior changes </label>
-        <br>
-        <section>
-          <app-more-less-content>
-            <div less>
-              <ul>
-                <li>Must show that cannabis is not visible from outside the store</li>
-                <li>If submitting photos, the photos must be taken specifically for the purpose of the application (not
-                  general/stock images) and must be no more than six months old</li>
-                <li>If submitting renderings, renderings may be either printed or hand-drawn (as long as they are
-                  legible)</li>
-              </ul>
-            </div>
-          </app-more-less-content>
-        </section>
-
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Exterior Photos or Renderings"
-            [enableFileDeletion]="true" [useDocumentTypeForName]="true"
-            fileTypes="FILE MUST BE IN PDF, JPG OR PNG FORMAT." [multipleFiles]="true" entityName="application"
-            [extensions]="['jpg', 'jpeg', 'png', 'pdf']"
-            (numberOfUploadedFiles)="uploadedPhotosOrRenderingsDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD PHOTOS OR RENDERINGS OF THE STORE EXTERIOR, DRAG FILES HERE OR'">
-          </app-file-uploader>
-        </section>
-      </div>
 
       <!-- Hours of Sale -->
       <section class="ngtest-hours-of-sale" *ngIf="application?.applicationType?.showHoursOfSale">
-        <h3 class="blue-header">HOURS OF SALE</h3>
+        <h3 class="blue-header">Establishment Proposal</h3>
+
         <div class="padded-section">
-          <p *ngIf="application?.applicationType?.name !== ApplicationTypeNames.CRSTransferofOwnership">Indicate the
-            store's proposed hours for cannabis sales below. Proposed
-            hours must fall between 9 a.m. and 11
-            p.m. Cannabis stores must not be open outside of their licensed hours. However, they may choose to be
-            closed
-            at
-            times they are licensed to be open.
-          </p>
+            <br>
+            <label for="">Proposed Service Areas</label>
+          
+          <p>Complete the following based on your establishment floor plan and occupant load. dentify each proposed service area (interior and exterior) where liquor will be sold, served or consumed.</p>
+            <table class="store-hours">
+                <tr>
+                  <th class="lead">Area No.</th>
+                  <th class="lead">Floor Level</th>
+                  <th class="lead">Indoor</th>
+                  <th class="lead">Outdoor</th>
+                  <th class="lead">Occupant Load</th>
+                </tr>
+              
+                <tr>
+                  <td class="lead" style="text-align: center;">1.</td>
+                  <td><input class="form-control" type="text"></td>
+                  <td><input class="form-control" type="text"></td>
+                  <td><input class="form-control" type="text"></td>
+                  <td><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                    <td class="lead" style="text-align: center;">2.</td>
+                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text"></td>
+                  </tr>
+                  <tr>
+                      <td class="lead" style="text-align: center;">3.</td>
+                      <td><input class="form-control" type="text"></td>
+                      <td><input class="form-control" type="text"></td>
+                      <td><input class="form-control" type="text"></td>
+                      <td><input class="form-control" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="lead" style="text-align: center;">4.</td>
+                        <td><input class="form-control" type="text"></td>
+                        <td><input class="form-control" type="text"></td>
+                        <td><input class="form-control" type="text"></td>
+                        <td><input class="form-control" type="text"></td>
+                      </tr>
+                      <tr>
+                          <td class="lead" style="text-align: center;">5.</td>
+                          <td><input class="form-control" type="text"></td>
+                          <td><input class="form-control" type="text"></td>
+                          <td><input class="form-control" type="text"></td>
+                          <td><input class="form-control" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="lead" style="text-align: right;" colspan='4'>Total Occupant Load (of all licensed areas):</td>
+                            <td><input class="form-control" type="text"></td>
+                          </tr>
+              </table>
+
+              <hr><br>
+              <label for="">Hours of Liquor Service:</label>
+        <p>Identify the start and end times of your proposed hours of liquor service for each day of the week.  You should request the maximum hours of liquor service that you are most likely to require.  If licensed, you may open or close at any time within the approved hours.  Maximum hours of liquor service permitted by the Branch are 9 AM to 4 AM.  Contact your LG/FN to ask about bylaws regarding operating hours.</p>
+          
           <table class="store-hours">
             <tr>
               <th class="lead"></th>
-              <th>Sunday</th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
+              <th class="lead">Sunday</th>
+              <th class="lead">Monday</th>
+              <th class="lead">Tuesday</th>
+              <th class="lead">Wednesday</th>
+              <th class="lead">Thursday</th>
+              <th class="lead">Friday</th>
+              <th class="lead">Saturday</th>
             </tr>
             <tr>
-              <th>Open</th>
+              <th class="lead">Open</th>
               <td>
                 <select class="form-control" formControlName="serviceHoursSundayOpen">
                   <option value=""> -- </option>
@@ -558,7 +463,7 @@
               </td>
             </tr>
             <tr>
-              <th>Close</th>
+              <th class="lead">Close</th>
               <td>
                 <select class="form-control" formControlName="serviceHoursSundayClose">
                   <option value=""> -- </option>
@@ -608,6 +513,191 @@
         </div>
       </section>
 
+
+      <div class="ngtest-floor-plan" *ngIf="showFormControl(application?.applicationType?.floorPlan)">
+          <hr><br>
+          <label for="">Floor Plan</label>
+          <br>
+          <section *ngIf="application?.applicationType?.floorPlan === FormControlState.Show">
+      
+                  A floor plan is a document, showing a view from above, of the dimensions and relationships between
+                  rooms, spaces and other physical features on each floor of a structure. The document must measure at
+                  least 8.5" x 11" (standard letter size). A floor plan for each level of the establishment must be
+                  submitted if the proposed establishment has more than one level. Either a hand-drawn or
+                  computer-generated plan is acceptable, as long as the plan is drawn to scale and is clear and legible. A
+                  floor plan must not be submitted on graph paper or paper with gridlines.
+
+                <div style="display: flex; margin-top: 10px;">
+                  <section>
+                    The floor plan must be submitted at the time of application and it
+                    must identify the proposed non-medical cannabis retail area(s) plus
+                    the following interior features of the establishment:
+                    <ul>
+                      <li>Each room or area labeled with its intended use and dimensions;</li>
+                      <li>Washrooms, stairs and elevators;</li>
+                      <li>Entrances and exits (including those used by staff only);</li>
+                      <li>Sales counter and cash register locations;</li>
+                      <li>Furniture and fixture layout (e.g. shelves, display cases); and</li>
+                      <li>Identify the security system and other physical security features that secure the store.</li>
+                    </ul>
+                  </section>
+                  <img src="assets/floor-plan-example.png" width="300" alt="Floor plan"
+                    style="margin: auto; display: block;">
+                </div>
+
+  
+          </section>
+          <p *ngIf="application?.applicationType?.floorPlan === FormControlState.Reaonly">
+            The below offer or proof of ownership, lease or sub-lease is on file.
+          </p>
+          <section>
+            <app-file-uploader *ngIf="applicationId" documentType="Floor Plan" fileTypes="FILE MUST BE IN PDF FORMAT."
+              [enableFileDeletion]="application?.applicationType?.floorPlan === FormControlState.Show"
+              [multipleFiles]="true" entityName="application" [useDocumentTypeForName]="true"
+              (numberOfUploadedFiles)="uploadedFloorPlanDocuments = $event" [entityId]="applicationId"
+              [uploadHeader]="'TO UPLOAD FLOOR PLANS, DRAG FILES HERE OR'">
+            </app-file-uploader>
+          </section>
+        </div>
+        <br>
+        <hr *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSStructuralChange">
+        <mat-card *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSStructuralChange"
+          class="mat-elevation-z0" style="margin-bottom: 10px;">
+          <section style="display: flex; justify-content: space-between; width: 100%;">
+            <div class="question-label">
+              Does the proposed change involve a shared vestibule or changes to the entrances, exits or windows?
+            </div>
+            <div style="flex: 0 0 85px;">
+              <mat-button-toggle-group [ngClass]="{'invalid': isTouchedAndInvalid('proposedChange')}"
+                formControlName="proposedChange" aria-label="Font Style">
+                <mat-button-toggle value="Yes">Yes</mat-button-toggle>
+                <mat-button-toggle value="No">No</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </section>
+        </mat-card>
+  
+        <div class="ngtest-site-plan" *ngIf="showSitePlan()">
+          <hr><br>
+          <label for="">Site Plan</label>
+          <br>
+          <div *ngIf="application?.applicationType?.sitePlan === FormControlState.Show">
+
+                <span>
+                  A site plan is a document showing any existing and proposed building footprints, pathways of
+                  travel, parking, and landscaping elements, and the surrounding area. The document must measure at least
+                  8.5" x 11" (standard letter size). Either a hand-drawn or computer-generated plan is acceptable, as long
+                  as the plan is drawn to scale and is clear and legible. A site plan must not be submitted on graph paper
+                  or paper with gridlines.
+                </span>
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-6">
+                    <p>
+                      The site plan must include the proposed store footprint and a representation of any interior or
+                      exterior spaces surrounding the store, including:
+                    </p>
+  
+                    <ul>
+                      <li>The location of any other buildings/businesses on the same site, each building footprint, type
+                        of businesses (e.g. gas station, office building) and building names, and their entrances and
+                        exits</li>
+                      <li>A description of the type of separation proposed (for any adjoining businesses)</li>
+                      <li>Road access and exits, including any relevant street names</li>
+                      <li>Parking lots.</li>
+                    </ul>
+                    <img src="assets/site-plan-example.png" width="350" alt="Site plan"
+                      style="margin: auto; display: block;">
+                  </div>
+                  <div class="col-md-6">
+                    <p>
+                      If the proposed store is located inside a building with other businesses
+                      (e.g. a mall), submit two site plans:
+                    </p>
+                    <p>
+                      1) One site plan showing location of any other buildings/businesses on the same site, including:
+                    </p>
+                    <ul>
+                      <li>Each building footprint, building name and a list of businesses operating inside the building
+                      </li>
+                      <li>Road access and exits, including any relevant street names, and</li>
+                      <li>Parking lots</li>
+                    </ul>
+                    <p>
+                      2) A second site plan showing the location of the proposed store
+                      inside the building’s footprint:
+                    </p>
+                    <ul>
+                      <li>All entrances and exits for the building</li>
+                      <li>The location, name and type of businesses operating inside the building</li>
+                      <li>The store footprint with all entrances and exits for the store, and</li>
+                      <li>A description of the type of separation proposed for any business adjoining the proposed store
+                      </li>
+                    </ul>
+                    <p>
+                      Full height walls are required for separation and no connecting doors between the cannabis retail
+                      store
+                      and
+                      the neighbouring business are permitted.
+                    </p>
+                    <p>
+                      The cannabis retail store may share a vestibule with another type of business (e.g. a liquor store
+                      or
+                      grocery
+                      store) provided each business has its own controlled entrance within the vestibule. The cannabis
+                      retail
+                      store
+                      cannot share a vestibule with a business that would be contrary to public interest (i.e. business
+                      aimed
+                      at
+                      minors or a liquor consumption business).
+                    </p>
+                  </div>
+                </div>
+
+          </div>
+          <section>
+            <app-file-uploader *ngIf="applicationId" documentType="Site Plan" fileTypes="FILE MUST BE IN PDF FORMAT."
+              [enableFileDeletion]="application?.applicationType?.sitePlan === FormControlState.Show"
+              [multipleFiles]="true" entityName="application" [useDocumentTypeForName]="true"
+              (numberOfUploadedFiles)="uploadedSitePlanDocuments = $event" [entityId]="applicationId"
+              [uploadHeader]="'TO UPLOAD SITE PLAN DOCUMENTS, DRAG FILES HERE OR'">
+            </app-file-uploader>
+          </section>
+        </div>
+
+  
+        <div>
+          <hr>
+          <label for="">Letter of Intent</label>
+          <br>
+          <section>
+              <p>Provide a letter describing your proposed establishment.  Your letter must include:</p>
+              
+                <ul>
+                  <li>Describe the primary focus of your business including any functions and services your establishment will provide if liquor service is not the primary business focus. </li>
+                  <li>If liquor service is not the primary business focus (e.g. retail store or spa): identify the operating hours of your primary business and whether or not the business focus will shift to liquor service at a set time of day.</li>
+                  <li>Identify all types of entertainment that may be offered in your establishment (e.g. films, darts, DJ booth, dance floor, exotic dancing, gambling, karaoke, live music, pool)</li>
+                  <li>Describe the type of food service your establishment will offer.  Liquor primary establishments must provide, at a minimum, a variety of hot or cold snacks and non-alcoholic beverages during all hours of operation.</li>
+                  <li>Describe the composition of the neighbourhood (e.g. commercial, residential, industrial).</li>
+                  <li>Describe the potential for noise and other types of disturbance. </li>
+                  <li>Describe the measures you will implement to ensure nearby residents are not disturbed by your establishment or patrons of your establishment. </li>
+                  <li>Identify any requests for licensing options and/or endorsements</li>
+                  <li>Include any other information that may be relevant to your application</li>
+                </ul>
+              
+
+          </section>
+  
+          <section>
+            <app-file-uploader *ngIf="applicationId" documentType="Letter of Interest"
+              [enableFileDeletion]="true" [useDocumentTypeForName]="true"
+              fileTypes="FILE MUST BE IN PDF FORMAT." [multipleFiles]="true" entityName="application"
+              [extensions]="['pdf']"
+              [entityId]="applicationId"
+              [uploadHeader]="'TO LETTER OF INTENT, DRAG FILES HERE OR'">
+            </app-file-uploader>
+          </section>
+        </div>
       <!-- Licensed Producer -->
       <div *ngIf="application?.applicationType?.name === ApplicationTypeNames.Marketer">
         <h3 class="blue-header">INFORMATION ABOUT THE LICENSED PRODUCER</h3>
@@ -636,7 +726,7 @@
       <div class="ngtest-associate-upload" *ngIf="application?.applicationType?.showAssociatesFormUpload">
         <br>
         <hr>
-        <label for="">Associates Form</label>
+        <label for="">Personal History Summary Form</label>
         <br>
         <i>
           Please download
@@ -667,119 +757,12 @@
           <app-file-uploader *ngIf="applicationId" documentType="Licence Application Associates"
             fileTypes="FILE MUST BE IN PDF FORMAT." [multipleFiles]="false" entityName="application"
             (numberOfUploadedFiles)="uploadedAssociateDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD ASSOCIATE FORM, DRAG FILE HERE OR'" #mainForm>
+            [uploadHeader]="'TO UPLOAD PERSONAL HISTORY FORM, DRAG FILE HERE OR'" #mainForm>
           </app-file-uploader>
         </section>
         <br>
       </div>
 
-      <div class="ngtest-financial-integrity-upload"
-        *ngIf="application?.applicationType?.showFinancialIntegrityFormUpload">
-        <hr><br>
-        <label for="">Financial Integrity Form</label>
-        <br>
-        <i>
-          Please download <a href="https://www2.gov.bc.ca/assets/download/E840994D9D304AFE8D56A50666281B9D" download
-            target="_blank" rel="noopener noreferrer">and complete</a> the financial integrity form.
-        </i>
-        <p>Upload the completed form below.</p>
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Licence Application Financial Integrity"
-            fileTypes="FILE MUST BE IN PDF FORMAT." [multipleFiles]="false" entityName="application"
-            (numberOfUploadedFiles)="uploadedFinancialIntegrityDocuments = $event" [entityId]="applicationId"
-            [uploadHeader]="'TO UPLOAD FINANCIAL INTEGRITY FORM, DRAG FILE HERE OR'" #financialIntegrityDocuments>
-          </app-file-uploader>
-        </section>
-      </div>
-
-      <section class="ngtest-supporting-documents"
-        *ngIf="application?.applicationType?.showSupportingDocuments &&  (application?.applicationType?.name !== ApplicationTypeNames.Marketer || account?.businessType !== 'SoleProprietor')">
-        <hr>
-        <br>
-        <label for="">Supporting Documents</label>
-        <br>
-        <p *ngIf="application?.applicationType?.name !== ApplicationTypeNames.Marketer">Please download the
-          <span *ngIf=" application?.applicationType?.name !== ApplicationTypeNames.CRSTransferofOwnership">
-            <a *ngIf="account?.businessType === 'SoleProprietor'"
-              href="https://www2.gov.bc.ca/assets/download/EEC8AD886FA04CD48D78FD22A375A7D8" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="account?.businessType === 'Society'"
-              href="https://www2.gov.bc.ca/assets/download/8FFCF0DA701842F99D4A80F05174A71A" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="account?.businessType === 'IndigenousNation'"
-              href="https://www2.gov.bc.ca/assets/download/87A1FB955AD64660BAC4BF2462226E67" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="businessTypeIsPartnership()"
-              href="https://www2.gov.bc.ca/assets/download/13ADA5B32E4242568DB2B72E3566A56D" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf=" businessTypeIsPrivateCorporation()"
-              href="https://www2.gov.bc.ca/assets/download/9D237C8721B1475FB95534037AE21829" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-          </span>
-          <span *ngIf=" application?.applicationType?.name === ApplicationTypeNames.CRSTransferofOwnership">
-            <a *ngIf="account?.businessType === 'SoleProprietor'"
-              href="https://www2.gov.bc.ca/assets/download/300E2E17AA3F4EFE9B555F86B065BE9E" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="account?.businessType === 'Society'"
-              href="https://www2.gov.bc.ca/assets/download/9CC0BA56735E466AB09FEAEE3241F46C" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="account?.businessType === 'IndigenousNation'"
-              href="https://www2.gov.bc.ca/assets/download/31016E1B36664641921A914DAD28D894" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf="businessTypeIsPartnership()"
-              href="https://www2.gov.bc.ca/assets/download/9A8C9C2E49564C54A2232E60F5B266DB" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-            <a *ngIf=" businessTypeIsPrivateCorporation()"
-              href="https://www2.gov.bc.ca/assets/download/31016E1B36664641921A914DAD28D894" download target="_blank" rel="noopener noreferrer">
-              Document Checklist
-            </a>
-          </span>
-          <span *ngIf="application?.applicationType?.name !== ApplicationTypeNames.CRSLocationChange">and assemble
-            all
-            required documents.</span>
-          <span *ngIf="application?.applicationType?.name === ApplicationTypeNames.CRSLocationChange">and assemble
-            all
-            required documents listed in the 'Documents
-            Related to the Proposed Store' section.</span>
-        </p>
-        <section *ngIf="application?.applicationType?.name === ApplicationTypeNames.Marketer">
-          <p *ngIf="account?.businessType === 'Society'">
-            Please upload the society’s Statement of Directors and Registered Office.
-          </p>
-          <!-- <p *ngIf="account?.businessType === 'PublicCorporation'">
-            Please upload the society’s Statement of Directors and Registered Office.
-          </p> -->
-          <p *ngIf="businessTypeIsPartnership()">
-            Please upload the Partnership Agreement.
-          </p>
-          <div *ngIf="businessTypeIsPrivateCorporation()">
-            <p>Please upload: </p>
-            <ul>
-              <li>Notice of Articles</li>
-              <li>Central Securities Register</li>
-            </ul>
-          </div>
-
-        </section>
-
-        <section>
-          <app-file-uploader *ngIf="applicationId" documentType="Licence Application Supporting"
-            (numberOfUploadedFiles)="uploadedSupportingDocuments = $event" [maxNumberOfFiles]="200"
-            fileTypes="FILES MUST BE IN PDF, JPEG, OR PNG FORMAT." entityName="application" [entityId]="applicationId"
-            [extensions]="['pdf', 'jpg', 'jpeg', 'png']" #supportingDocuments>
-          </app-file-uploader>
-        </section>
-      </section>
-      <br>
 
       <!-- Contact Details -->
       <h3 class="blue-header">APPLICATION CONTACT DETAILS</h3>
@@ -838,7 +821,8 @@
           <input class="form-control" style="width: 350px;" type="text" autocomplete="email"
             formControlName="contactPersonEmail" id="contactPersonEmail" (blur)="trimValue(form.get('contactPersonEmail'))">
         </app-field>
-      </address>
+      </address>  
+
 
       <h3 class="blue-header ngtest-declarations" *ngIf="application?.applicationType?.showDeclarations">
         DECLARATIONS
@@ -899,20 +883,11 @@
           </div>
 
         </section>
-        <p *ngIf="application?.applicationType?.name !== ApplicationTypeNames.Marketer">Note: A lawyer or
-          consultant,
-          may NOT submit this application on behalf of
-          the applicant.</p>
-        <section *ngIf="application?.applicationType?.name === ApplicationTypeNames.Marketer">
-          <p *ngIf="businessTypeIsPrivateCorporation()">
-            Note: A lawyer or consultant, may NOT submit this application on behalf of the applicant.
-          </p>
-          <p *ngIf="!businessTypeIsPrivateCorporation()">
-            Note: A lawyer, licensee representative or third party operator may NOT submit this application on
-            behalf of
-            the applicant.
-          </p>
-        </section>
+
+
+
+
+
         <app-field [valid]="!showValidationMessages || form.get('authorizedToSubmit').valid"
           errorMessage="Please affirm that you are authorized to submit the application." [showChevrons]="false">
           <section style="display: flex">
@@ -989,7 +964,7 @@
         <button class="btn btn-primary" style="margin-right:10px;" (click)="router.navigate(['/dashboard'])">
           <span>
             <i class="fa fa-save" style="color: #fff;"></i>
-            SAVE FOR LATER
+            DOWNLOAD LG/IN FORM PACKAGE
           </span>
         </button>
         <button class="btn btn-primary" (click)="submit_application()">SUBMIT &amp; PAY</button>

@@ -112,6 +112,13 @@
 
         th.lead {
             background-color: transparent;
+            font-size:12px;
+            font-weight:400;
+        }
+        td.lead {
+            background-color: transparent;
+            font-size:12px;
+            font-weight:400;
         }
     }
 
@@ -135,7 +142,10 @@
 }
 
 .question-label {
-    font-weight: 600;
+    font-weight: 400;
+    padding-left:10px;
+    
+    
 }
 
 
